@@ -136,10 +136,45 @@ public class Model extends Observable {
      * value, then the leading two tiles in the direction of motion merge,
      * and the trailing tile does not.
      */
+
     public boolean tilt(Side side) {
         boolean changed;
         changed = false;
-
+        board.setViewingPerspective(side);
+        for (int c = 0; c < board.size(); c++) {
+            int[] temp = new int[board.size()];
+            for (int i = 0; i < board.size(); i++) {
+                temp[i] = -1;
+            }
+            for (int r = board.size() - 1; r >= 0; r--) {
+                if (board.tile(c, r) == null) {
+                    continue;
+                }
+                for (int i = r + 1; i < board.size(); i++) {
+                    if (board.tile(c, i) == null && i < board.size() - 1) {
+                        continue;
+                    } else if (i == board.size() - 1 && board.tile(c, i) == null) {
+                        Tile t = board.tile(c, r);
+                        board.move(c, i, t);
+                        changed = true;
+                        break;
+                    } else if (board.tile(c, i).value() == board.tile(c, r).value() && temp[i] == -1) {
+                        Tile t = board.tile(c, r);
+                        board.move(c, i, t);
+                        changed = true;
+                        score += board.tile(c, i).value();
+                        temp[i] = 1;
+                        break;
+                    } else if (board.tile(c, i).value() != board.tile(c, r).value() || temp[i] == 1) {
+                        Tile t = board.tile(c, r);
+                        board.move(c, i - 1, t);
+                        changed = true;
+                        break;
+                    }
+                }
+            }
+        }
+        board.setViewingPerspective(Side.NORTH);
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
@@ -224,6 +259,9 @@ public class Model extends Observable {
                     int nr = r + dr[i];
                     int nc = c + dc[i];
                     if (nr >= 0 && nr <= size - 1 && nc >= 0 && nc <= size - 1) {
+                        if (b.tile(nr, nc) == null) {
+                            return true;
+                        }
                         if (b.tile(r, c).value() == b.tile(nr, nc).value()) {
                             return true;
                         }
