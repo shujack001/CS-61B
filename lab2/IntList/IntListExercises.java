@@ -26,12 +26,15 @@ public class IntListExercises {
     public static void setToZeroIfMaxFEL(IntList L) {
         IntList p = L;
         while (p != null) {
-            if (!firstDigitEqualsLastDigit(max(p))) {
-                return;
+            if (firstDigitEqualsLastDigit(max(p))) {
+                IntList t = p;
+                while(t.first != max(p)){
+                    t = t.rest;
+                }
+                t.first = 0;
             }
             p = p.rest;
         }
-        L.first = 0;
     }
 
     /** Returns the max value in the IntList starting at L. */
@@ -78,6 +81,6 @@ public class IntListExercises {
             lst.first *= lst.first;
         }
 
-        return currElemIsPrime && lst.rest == null || squarePrimes(lst.rest);
+        return  squarePrimes(lst.rest) || currElemIsPrime;
     }
 }

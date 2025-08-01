@@ -18,15 +18,15 @@ public class IntListExercisesTest {
 
     @Test
     public void setToZeroTest() {
-        IntList testL1 = IntList.of(1, 2, 3, 4);
+        IntList testL1 = IntList.of(55, 22, 45, 44, 5);
         IntListExercises.setToZeroIfMaxFEL(testL1);
-        IntList exceptedL1 = IntList.of(0, 2, 3, 4);
+        IntList exceptedL1 = IntList.of(0, 22, 45, 0, 0);
         for (int i = 0; i < testL1.size(); i++) {
             assertEquals(exceptedL1.get(i), testL1.get(i));
         }
         IntList testL2 = IntList.of(1, 44, 33, 22, 11);
         IntListExercises.setToZeroIfMaxFEL(testL2);
-        IntList exceptedL2 = IntList.of(0, 44, 33, 22, 11);
+        IntList exceptedL2 = IntList.of(1, 0, 0, 0, 0);
         for (int i = 0; i < testL2.size(); i++) {
             assertEquals(exceptedL2.get(i), testL2.get(i));
         }
@@ -47,14 +47,16 @@ public class IntListExercisesTest {
 
     @Test
     public void squarePrimeTest() {
-        IntList testL1 = IntList.of(1, 2, 3, 4, 5);
-        IntListExercises.squarePrimes(testL1);
-        IntList exceptedL1 = IntList.of(1, 4, 9, 4, 25);
+        IntList testL1 = IntList.of(14, 15, 16, 17, 18);
+        Boolean returnL1 = IntListExercises.squarePrimes(testL1);
+        assertTrue(returnL1);
+        IntList exceptedL1 = IntList.of(14, 15, 16, 289, 18);
         for (int i = 0; i < testL1.size(); i++) {
             assertEquals(exceptedL1.get(i), testL1.get(i));
         }
         IntList testL2 = IntList.of(1, 4, 6, 8);
-        IntListExercises.squarePrimes(testL2);
+        boolean returnL2 = IntListExercises.squarePrimes(testL2);
+        assertFalse(returnL2);
         IntList exceptedL2 = IntList.of(1, 4, 6, 8);
         for(int i = 0; i < testL2.size(); i++){
             assertEquals(exceptedL2.get(i), testL2.get(i));
