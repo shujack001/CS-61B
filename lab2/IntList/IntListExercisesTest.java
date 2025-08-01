@@ -58,7 +58,7 @@ public class IntListExercisesTest {
         boolean returnL2 = IntListExercises.squarePrimes(testL2);
         assertFalse(returnL2);
         IntList exceptedL2 = IntList.of(1, 4, 6, 8);
-        for(int i = 0; i < testL2.size(); i++){
+        for (int i = 0; i < testL2.size(); i++) {
             assertEquals(exceptedL2.get(i), testL2.get(i));
         }
     }
