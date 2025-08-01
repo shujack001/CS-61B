@@ -27,11 +27,7 @@ public class IntListExercises {
         IntList p = L;
         while (p != null) {
             if (firstDigitEqualsLastDigit(max(p))) {
-                IntList t = p;
-                while (t.first != max(p)) {
-                    t = t.rest;
-                }
-                t.first = 0;
+                p.first = 0;
             }
             p = p.rest;
         }
